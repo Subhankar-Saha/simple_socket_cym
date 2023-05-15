@@ -28,11 +28,21 @@ io.on("connection",(socket)=>{
     console.log("Socket Connected ", socketId)
 	arr.push(socketId)
 	socket.on("message",(data)=>{
-		console.log(data);
 		arr.map((ele)=>{
 			io.to(ele).emit("message", data)
 		})
 	})
+
+	socket.on("container",(data)=>{
+		arr = arr.filter(e => e !== socketId)
+		io.emit("container", data);
+	})
+
+	socket.on("task",(data)=>{
+		arr = arr.filter(e => e !== socketId)
+		io.emit("task", data);
+	})
+
 	socket.on('disconnect',async()=>{
 		const index = arr.indexOf(socketId);
 		if (index > -1) { 
