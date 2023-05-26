@@ -38,6 +38,14 @@ io.on("connection", (socket) => {
 		socket.to(roomId).emit("container", data);
 	})
 
+	socket.on("containerError", (data) => {
+		socket.to(roomId).emit("containerError", data);
+	})
+
+	socket.on("containerOutError", (data) => {
+		socket.to(roomId).emit("containerOutError", data);
+	})
+
 	socket.on("containerOut", (data) => {
 		socket.to(roomId).emit("containerOut", data);
 	})
